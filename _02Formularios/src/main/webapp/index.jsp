@@ -17,8 +17,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-4">
-                    <form>
+                <div class="col-4 col-sm-8">
+                    <form action="index.jsp" method="post">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Programador escribe tu nombre</label>
                             <input type="text" class="form-control" name="nombreProgramador"  placeholder="Nombre">
@@ -32,13 +32,29 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-4">
-                    <br> 
+                <div class="col-4 col-sm-8">
+                    <br>
                     <div class="alert alert-info" role="alert">
+                        
                         <%
                             String nombre = request.getParameter("nombreProgramador");
                             String edad = request.getParameter("edadProgramador");
-                            out.println("Tu nombre es: "+nombre+" y tu edad es: "+edad);
+                            if (nombre != null && edad != null) {
+                                int edadNumero = Integer.parseInt(edad);
+                                String mensajeEdad = "";
+                                if (edadNumero >= 1 && edadNumero <= 18) {
+                                    mensajeEdad = "Programador inexperto";
+                                }
+                                if (edadNumero > 18 && edadNumero <= 30) {
+                                    mensajeEdad = "Programador joven e inexperto";
+                                }
+                                if (edadNumero > 30 && edadNumero <= 65) {
+                                    mensajeEdad = "Programador viejo";
+                                }
+                                out.println("Tu nombre es: " + nombre + " y tu edad es: " + edad + " años " + mensajeEdad);
+                            } else {
+                                out.println("Programador tienes que colocar tus datos.");
+                            }
                         %>
                     </div>
                 </div>
