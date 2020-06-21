@@ -14,10 +14,14 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <title>JSP Page</title>
+        <title>Empleados</title>
     </head>
     <body>
         <%
+            HttpSession sesion = request.getSession();
+            if (sesion.getAttribute("logueado") == null || sesion.getAttribute("logueado").equals("0")) {
+                response.sendRedirect("login.jsp");
+            }
             Connection con = null;
             Statement st = null;
             ResultSet rs = null;
@@ -29,10 +33,18 @@
                 rs = st.executeQuery(sql);
         %>
         <div class="container">
-            <div class="row">
-                <div class="col-sm">
-                </div>
-            </div>
+            <nav class="navbar navbar-light bg-light">
+                <a class="navbar-brand">Programa</a>
+                <form class="form-inline" action="logout.jsp">
+
+                    <a href="datos_usuario.jsp">
+                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                        <%= sesion.getAttribute("usuario")%>
+                    </a>
+
+                    <button class="btn btn-outline-danger my-2 my-sm-0 ml-2" type="submit">Log out</button>
+                </form>
+            </nav>
             <div class="row">
                 <div class="col col-sm">
                     <table class="table table-striped">
@@ -54,7 +66,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% while (rs.next()) {                                    %>       
+                            <% while (rs.next()) {%>       
 
                             <tr>
                                 <th scope="row"><%= rs.getString(1)%></th>
@@ -82,13 +94,7 @@
                     </table>
                 </div>
             </div>
-            <div class="row">
-                <div class="col col-sm">
-                    <p> La ofensa es como un buen haiku: puede ignorarse, desconocerse, perdonarse o borrarse, pero nunca puede ser olvidada.           <br> Mi hoja es mi alma. Mi alma pertenece a mi Daimyo. 
-                        <br> Ultrajar mi hoja es afrentar a mi Daimyo.
-                        <br> La muerte no es eterna; el deshonor, sí.</p>
-                </div>
-            </div>
+            
         </div>
     </body>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

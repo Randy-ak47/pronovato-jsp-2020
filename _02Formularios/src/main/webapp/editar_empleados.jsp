@@ -25,7 +25,7 @@
             String telefono = new String(request.getParameter("telefono").getBytes("iso-8859-1"),"utf-8");
             String id = new String(request.getParameter("id").getBytes("iso-8859-1"),"utf-8");
         %>
-        <div class="container">
+        <div class="container mt-5">
             <div class="row">
                 <div class="col-sm">
                 </div>
