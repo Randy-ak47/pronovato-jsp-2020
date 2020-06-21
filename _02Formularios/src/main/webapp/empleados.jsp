@@ -6,6 +6,7 @@
 <%@page import="java.sql.*"%>
 <%@page import="com.mysql.jdbc.Driver"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,43 +22,60 @@
             Statement st = null;
             ResultSet rs = null;
             try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost/pronovato_jsp_2020?user=root&password=");
-            st = con.createStatement();
-            String sql = ("SELECT * FROM empleados;");
-            rs = st.executeQuery(sql);
+                Class.forName("com.mysql.jdbc.Driver");
+                con = DriverManager.getConnection("jdbc:mysql://localhost/pronovato_jsp_2020?user=root&password=");
+                st = con.createStatement();
+                String sql = ("SELECT * FROM empleados;");
+                rs = st.executeQuery(sql);
         %>
         <div class="container">
             <div class="row">
                 <div class="col-sm">
-                    <h1>Tabla de Empleados</h1>
                 </div>
             </div>
             <div class="row">
-                <div class="col-4 col-sm-8">
+                <div class="col col-sm">
                     <table class="table table-striped">
                         <thead>
+                            <tr>
+                                <th scope="col"colspan="4" class="text-center"><h3>Empleados</h3></th>
+                                <th scope="col">
+                                    <a href="crear_empleados.jsp">
+                                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                    </a>
+                                </th>
+                            </tr>
                             <tr>
                                 <th scope="col">Id</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Dirección</th>
                                 <th scope="col">Teléfono</th>
+                                <th scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <% while (rs.next()) { %>       
+                            <% while (rs.next()) {                                    %>       
 
                             <tr>
                                 <th scope="row"><%= rs.getString(1)%></th>
                                 <td><%= rs.getString(2)%></td>
                                 <td><%= rs.getString(3)%></td>
                                 <td><%= rs.getString(4)%></td>
+                                <td>
+                                    <a href="editar_empleados.jsp?id=<%= rs.getString(1)%>&nombre=<%= rs.getString(2)%>&direccion=<%= rs.getString(3)%>&telefono=<%= rs.getString(4)%>&
+                                       ">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="eliminar_empleados.jsp?id=<%= rs.getString(1)%>">
+                                        <i class="fa fa-trash-o ml-2" aria-hidden="true"></i>
+                                    </a>
+                                </td>
 
                             </tr>
                             <%
                                     }
                                 } catch (Exception e) {
-                                    out.println("error en Mysql "+ e.getMessage());
+                                    out.println("error en Mysql " + e.getMessage());
                                 }
                             %>
                         </tbody>
@@ -65,11 +83,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-4 col-sm-8">
-                    <br>
-                    <div class="alert alert-info" role="alert">
-                        <p> hola</p>
-                    </div>
+                <div class="col col-sm">
+                    <p> La ofensa es como un buen haiku: puede ignorarse, desconocerse, perdonarse o borrarse, pero nunca puede ser olvidada.           <br> Mi hoja es mi alma. Mi alma pertenece a mi Daimyo. 
+                        <br> Ultrajar mi hoja es afrentar a mi Daimyo.
+                        <br> La muerte no es eterna; el deshonor, sí.</p>
                 </div>
             </div>
         </div>
