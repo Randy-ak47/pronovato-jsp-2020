@@ -40,6 +40,8 @@
                             <label for="inputCity">Teléfono</label>
                             <input type="text" class="form-control" id="inputCity" name="telefono">
                         </div>
+                         <a href="empleados.jsp" class="btn btn-danger"><i class="fa fa-ban" aria-hidden="true"></i>
+Cancelar</a>
                         <button onclick="hola();" class="btn btn-primary" name="guardar"><i class="fa fa-floppy-o" aria-hidden="true"></i>
                             Guardar</button>
                     </form>

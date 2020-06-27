@@ -4,6 +4,7 @@
     Author     : Randy
 --%>
 
+<%@page import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,7 +20,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-4">
 
-                    <form>
+                    <form method="post">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Usuario</label>
                             <input name="usuario" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -45,17 +46,36 @@
         </div>
     </body>
     <%
+        Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;
+
         if (request.getParameter("login") != null) {
             request.setCharacterEncoding("UTF-8");
             String usuario = new String(request.getParameter("usuario").getBytes("iso-8859-1"), "utf-8");
             String password = new String(request.getParameter("password").getBytes("iso-8859-1"), "utf-8");
             HttpSession sesion = request.getSession();
+            /*
             if (usuario.equals("admin") && password.equals("1234")) {
                 sesion.setAttribute("logueado", "1");
                 sesion.setAttribute("usuario", usuario);
                 response.sendRedirect("empleados.jsp");
             } else {
                 out.print("Programador te equivocaste o contraseña invalida.");
+            }*/
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                con = DriverManager.getConnection("jdbc:mysql://localhost/pronovato_jsp_2020?user=root&password=");
+                st = con.createStatement();
+                String sql = ("SELECT * FROM user WHERE user='' and password = '';");
+                rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    sesion.setAttribute("logueado", "1");
+                    sesion.setAttribute("usuario", rs.getString("user"));
+                    sesion.setAttribute("id", rs.getString("id"));
+                    response.sendRedirect("empleados.jsp");
+                }
+            } catch (Exception e) {
             }
 
         }
