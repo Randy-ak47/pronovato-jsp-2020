@@ -4,6 +4,8 @@
     Author     : Randy
 --%>
 
+<%@page import="java.math.BigInteger"%>
+<%@page import="java.security.MessageDigest"%>
 <%@page import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -31,7 +33,46 @@
                             <input name="password" type="password" class="form-control" id="exampleInputPassword1">
                             <small id="emailHelp" class="form-text text-muted">Programador inserta tu contraseña.</small>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block" name="login">Login</button>
+                        <button type="submit" class="btn btn-primary btn-block" name="login" id="alerta">Login</button>
+                        <%
+                            Connection con = null;
+                            Statement st = null;
+                            ResultSet rs = null;
+
+                            if (request.getParameter("login") != null) {
+                                request.setCharacterEncoding("UTF-8");
+                                String usuario = new String(request.getParameter("usuario").getBytes("iso-8859-1"), "utf-8");
+                                String password = new String(request.getParameter("password").getBytes("iso-8859-1"), "utf-8");
+                                HttpSession sesion = request.getSession();
+                                /*
+                                if (usuario.equals("admin") && password.equals("1234")) {
+                                    sesion.setAttribute("logueado", "1");
+                                    sesion.setAttribute("usuario", usuario);
+                                    response.sendRedirect("empleados.jsp");
+                                } else {
+                                    out.print("Programador te equivocaste o contraseña invalida.");
+                                }*/
+                                try {
+                                    Class.forName("com.mysql.jdbc.Driver");
+                                    con = DriverManager.getConnection("jdbc:mysql://localhost/pronovato_jsp_2020?user=root&password=");
+                                    st = con.createStatement();
+                                    String sql = ("SELECT * FROM user WHERE user='" + usuario + "' and password = '" + getMD5(password) + "';");
+                                    rs = st.executeQuery(sql);
+
+                                    if (rs.next()) {
+                                        sesion.setAttribute("logueado", "1");
+                                        sesion.setAttribute("usuario", rs.getString("user"));
+                                        sesion.setAttribute("id", rs.getString("id"));
+                                        //response.sendRedirect("empleados.jsp");
+                                        request.getRequestDispatcher("empleados.jsp").forward(request, response);
+                                        
+                                    }else{
+                                    out.print("<br><div class='alert alert-danger' role='alert'>Error de usuario o contraseña!</div>");
+                                    }
+                                } catch (Exception e) {
+                                }
+                            }
+                        %>
                     </form> 
 
                 </div>
@@ -44,42 +85,42 @@
                 </div>
             </div>
         </div>
-    </body>
-    <%
-        Connection con = null;
-        Statement st = null;
-        ResultSet rs = null;
 
-        if (request.getParameter("login") != null) {
-            request.setCharacterEncoding("UTF-8");
-            String usuario = new String(request.getParameter("usuario").getBytes("iso-8859-1"), "utf-8");
-            String password = new String(request.getParameter("password").getBytes("iso-8859-1"), "utf-8");
-            HttpSession sesion = request.getSession();
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <!-- JS dependencies -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!--  sweetalert -->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- bootbox code -->
+        <script src="js/bootbox.all.min.js"></script>
+
+        <script>
             /*
-            if (usuario.equals("admin") && password.equals("1234")) {
-                sesion.setAttribute("logueado", "1");
-                sesion.setAttribute("usuario", usuario);
-                response.sendRedirect("empleados.jsp");
-            } else {
-                out.print("Programador te equivocaste o contraseña invalida.");
-            }*/
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://localhost/pronovato_jsp_2020?user=root&password=");
-                st = con.createStatement();
-                String sql = ("SELECT * FROM user WHERE user='' and password = '';");
-                rs = st.executeQuery(sql);
-                while (rs.next()) {
-                    sesion.setAttribute("logueado", "1");
-                    sesion.setAttribute("usuario", rs.getString("user"));
-                    sesion.setAttribute("id", rs.getString("id"));
-                    response.sendRedirect("empleados.jsp");
-                }
-            } catch (Exception e) {
-            }
-
-        }
-    %>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+            $(document).ready(function () {
+                $("#alerta").click(function () {
+                    swal("Error!", "No coinciden usuario y contraseña", "warning");
+                });
+            });
+     * 
+             */
+        </script>
+    </body>
 </html>
+<%!
+    public String getMD5(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] encBytes = md.digest(input.getBytes());
+            BigInteger numero = new BigInteger(1, encBytes);
+            String encString = numero.toString(16);
+            while (encString.length() < 32) {
+                encString = "0" + encString;
+            }
+            return encString;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+%>

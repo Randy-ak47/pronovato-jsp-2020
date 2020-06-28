@@ -47,9 +47,9 @@
                             <label for="inputCity">Teléfono</label>
                             <input value="<%= telefono%>" type="text" class="form-control" id="inputCity" name="telefono">
                         </div>
+                        <button type="submit" class="btn btn-primary" name="guardar"><i class="fa fa-floppy-o" aria-hidden="true"></i>
                         <a href="empleados.jsp" class="btn btn-danger"><i class="fa fa-ban" aria-hidden="true"></i>
 Cancelar</a>
-                        <button type="submit" class="btn btn-primary" name="guardar"><i class="fa fa-floppy-o" aria-hidden="true"></i>
                             Guardar</button>
                         <input type="hidden" name="id" value="<%= id%>">
                     </form>
