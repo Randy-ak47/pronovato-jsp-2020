@@ -74,8 +74,7 @@
                                 <td><%= rs.getString(3)%></td>
                                 <td><%= rs.getString(4)%></td>
                                 <td>
-                                    <a href="editar_empleados.jsp?id=<%= rs.getString(1)%>&nombre=<%= rs.getString(2)%>&direccion=<%= rs.getString(3)%>&telefono=<%= rs.getString(4)%>&
-                                       ">
+                                    <a href="editar_empleados.jsp?id=<%= rs.getString(1)%>&nombre=<%= rs.getString(2)%>&direccion=<%= rs.getString(3)%>&telefono=<%= rs.getString(4)%>&">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </a>
                                     <a href="eliminar_empleados.jsp?id=<%= rs.getString(1)%>">
