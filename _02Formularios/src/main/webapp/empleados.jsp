@@ -52,8 +52,8 @@
                             <tr>
                                 <th scope="col"colspan="4" class="text-center"><h3>Empleados</h3></th>
                                 <th scope="col">
-                                    <a href="crear_empleados.jsp">
-                                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                    <a href="crear_empleados.jsp" data-toggle="tooltip" data-placement="top" title="Crear nuevo usuario">
+                                        <i class="fa fa-user-plus" aria-hidden="true" ></i>
                                     </a>
                                 </th>
                             </tr>
@@ -74,10 +74,10 @@
                                 <td><%= rs.getString(3)%></td>
                                 <td><%= rs.getString(4)%></td>
                                 <td>
-                                    <a href="editar_empleados.jsp?id=<%= rs.getString(1)%>&nombre=<%= rs.getString(2)%>&direccion=<%= rs.getString(3)%>&telefono=<%= rs.getString(4)%>&">
+                                    <a href="editar_empleados.jsp?id=<%= rs.getString(1)%>&nombre=<%= rs.getString(2)%>&direccion=<%= rs.getString(3)%>&telefono=<%= rs.getString(4)%>&" data-toggle="tooltip" data-placement="top" title="Editar usuario">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </a>
-                                    <a href="eliminar_empleados.jsp?id=<%= rs.getString(1)%>">
+                                    <a href="eliminar_empleados.jsp?id=<%= rs.getString(1)%>" data-toggle="tooltip" data-placement="top" title="Eliminar usuario">
                                         <i class="fa fa-trash-o ml-2" aria-hidden="true"></i>
                                     </a>
                                 </td>
@@ -96,6 +96,8 @@
             
         </div>
     </body>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="js/myscript.js"></script>
 </html>
