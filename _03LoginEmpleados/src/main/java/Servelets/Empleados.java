@@ -61,10 +61,12 @@ public class Empleados extends HttpServlet {
                             + "<td>" + rs.getString(3) + "</td>"
                             + "<td>" + rs.getString(4) + "</td>");
                     out.print("<td>");
-                    out.print("<a href=\"editar_empleados.jsp?id=" + rs.getString(1) + "&nombre=" + rs.getString(2) + "&direccion=" + rs.getString(3) + "&telefono=" + rs.getString(4) + "\">"
+                    out.print("<a href=\"editar_empleados.jsp?id=" + rs.getString(1) + "&nombre=" + rs.getString(2) + "&direccion=" + rs.getString(3) + "&telefono=" + rs.getString(4) + "\""
+                            + "data-toggle=\"tooltip\" data-placement=\"top\" title=\"Editar usuario\">"
                             + "<i class=\"fa fa-pencil\" aria-hidden=\"true\"></i>");
                     out.print("</a>");
-                    out.print("<a href=\"eliminar_empleados.jsp?id=" + rs.getString(1) + "\">"
+                    out.print("<a href=\"eliminar_empleados.jsp?id=" + rs.getString(1) + "\" "
+                            + "data-toggle=\"tooltip\" data-placement=\"top\" title=\"Eliminar usuario\">"
                             + "<i class=\"fa fa-trash-o ml-2\" aria-hidden=\"true\"></i>");
                     out.print("</a>");
 

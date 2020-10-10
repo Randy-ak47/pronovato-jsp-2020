@@ -34,10 +34,10 @@
         %>
         <div class="container">
             <nav class="navbar navbar-light bg-light">
-                <a class="navbar-brand">Programa</a>
+                <a class="navbar-brand">MiLibreta</a>
                 <form class="form-inline" action="logout.jsp">
 
-                    <a href="datos_usuario.jsp">
+                    <a href="datos_usuario.jsp" data-toggle="tooltip" data-placement="top" title="Editar datos usuario">
                         <i class="fa fa-user-circle" aria-hidden="true"></i>
                         <%= sesion.getAttribute("usuario")%>
                     </a>
