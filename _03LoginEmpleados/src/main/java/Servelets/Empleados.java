@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
 import com.mysql.jdbc.Driver;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -50,6 +52,8 @@ public class Empleados extends HttpServlet {
                 String where = " WHERE 1 = 1";
                 String nombre = request.getParameter("nombre");
                 if (nombre != null) {
+                    //nombre= nombre.replaceAll("'", "\\\\'");
+                    nombre=this.mysql_real_scape_string(nombre);
                     where = where + " and nombre = '" + nombre + "';";
                 }
                 sql = sql + where;
@@ -80,7 +84,11 @@ public class Empleados extends HttpServlet {
 
             //
         } finally {
-            out.close();
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Empleados.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -122,5 +130,13 @@ public class Empleados extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    public String mysql_real_scape_string(String texto){
+        texto=texto.replaceAll("\\\\", "\\\\\\\\'");
+        texto=texto.replaceAll("\\n", "\\\\n'");
+        texto=texto.replaceAll("\\r", "\\\\r'");
+        texto=texto.replaceAll("\\t", "\\\\t");
+        texto=texto.replaceAll("'", "\\\\'");
 
+        return texto;
+    }
 }

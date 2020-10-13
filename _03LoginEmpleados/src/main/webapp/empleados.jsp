@@ -28,7 +28,8 @@
         %>
         <div class="container">
             <nav class="navbar navbar-light bg-light">
-                <a class="navbar-brand">Tabla Empleados</a>
+                <a class="navbar-brand" href="empleados.jsp"><i class="fa fa-home" aria-hidden="true"></i>
+Tabla Empleados</a>
                 <form class="form-inline" action="logout.jsp">
 
                     <a href="datos_usuario.jsp" data-toggle="tooltip" data-placement="top" title="Datos usuario">
