@@ -31,12 +31,10 @@
                 <a class="navbar-brand" href="empleados.jsp"><i class="fa fa-home" aria-hidden="true"></i>
 Tabla Empleados</a>
                 <form class="form-inline" action="logout.jsp">
-
                     <a href="datos_usuario.jsp" data-toggle="tooltip" data-placement="top" title="Datos usuario">
                         <i class="fa fa-user-circle" aria-hidden="true"></i>
                         <%= sesion.getAttribute("usuario")%>
                     </a>
-
                     <button class="btn btn-outline-danger my-2 my-sm-0 ml-2" type="submit">Log out</button>
                 </form>
             </nav>
@@ -70,7 +68,7 @@ Tabla Empleados</a>
                                 </tr>
                             </thead>
                             <tbody>
-                              <!-- NO LEE LOS SCRIPTS POR TANTO SE COLOCA AL PRINCIPIO-->
+                              <!-- NO LEE LOS SCRIPTS POR TANTO SE COLOCAN AL PRINCIPIO-->
                                 
                                 <jsp:include page="Empleados"/>
                             </tbody>
